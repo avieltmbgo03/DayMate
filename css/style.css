@@ -58,6 +58,12 @@ a{color:var(--olive-d)} a:hover{color:var(--forest)}
 .mood-btn{font-size:1.7rem;background:none;border:2px solid transparent;border-radius:14px;padding:2px 8px}
 .mood-btn.on{border-color:var(--olive);background:var(--sage)}
 
+/* memories: masonry so each card fits its own photo */
+.memories{column-count:2;column-gap:16px}
+@media(min-width:768px){.memories{column-count:3}}
+.memories .dm-card{height:auto;width:100%;display:inline-block;break-inside:avoid;margin-bottom:16px}
+.memories .dm-card img{width:100%;height:auto;display:block}
+
 details.letter{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:10px}
 details.letter summary{cursor:pointer;font-weight:500}
 details.letter p{margin:12px 0 0;white-space:pre-line}

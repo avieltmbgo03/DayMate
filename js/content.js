@@ -91,7 +91,18 @@ window.DAYMATE_CONTENT = {
 
   // photo: ilagay sa assets/memories/ tapos "assets/memories/pic1.jpg" (optional)
   memories: [
-    { caption: "Our first date", date: "2024-01-01", photo: "" }
+    { caption: "First date sa Alabang", date: "2026-05-02", photo: "assets/memories/pic1.jpg" },
+    { caption: "First Study Call", date: "2026-05-03", photo: "assets/memories/pic2.jpg" },
+    { caption: "First Sleep Call", date: "2026-05-04", photo: "assets/memories/pic3.jpg" },
+    { caption: "Eepy Boi", date: "2026-05-06", photo: "assets/memories/pic4.jpg" },
+    { caption: "ML Affinity", date: "2026-05-05", photo: "assets/memories/pic5.jpg" },
+    { caption: "Your Early Birthday Celebration", date: "2026-05-27", photo: "assets/memories/pic6.jpg" },
+    { caption: "Spontaneous Date in SM SouthMall", date: "2026-06-06", photo: "assets/memories/pic7.jpg" },
+    { caption: "Our first PhotoBooth", date: "2026-06-06", photo: "assets/memories/pic8.jpeg" },
+    { caption: "Our Late Bday Celeb on EK", date: "2026-07-12", photo: "assets/memories/pic9.jpg" },
+    { caption: "SM San Lazaro Date", date: "2024-09-11", photo: "assets/memories/pic10.jpg" },
+    { caption: "Study Study Study", date: "2024-10-19", photo: "assets/memories/pic11.jpg" },
+    { caption: "After Shift Date", date: "2024-11-04", photo: "assets/memories/pic12.jpg" }
   ],
 
   dateIdeas: [

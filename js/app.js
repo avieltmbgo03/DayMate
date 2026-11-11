@@ -1,5 +1,5 @@
 /* ---------- helpers ---------- */
-const C = Object.assign({ hisName: 'Babe', herName: 'Me', anniversary: '', messages: [], letters: [], memories: [], dateIdeas: [] }, window.DAYMATE_CONTENT);
+const C = Object.assign({ hisName: 'Kenzie', herName: 'Aviel', anniversary: '', messages: [], letters: [], memories: [], dateIdeas: [] }, window.DAYMATE_CONTENT);
 if (!C.messages.length) C.messages = ['♡'];
 if (!C.dateIdeas.length) C.dateIdeas = ['Picnic sa park'];
 const $ = (s, r = document) => r.querySelector(s);
@@ -245,9 +245,9 @@ function renderLittle() {
   renderMsg();
   $('#letters').innerHTML = C.letters.map(l => `<details class="letter"><summary>${esc(l.title)}</summary><p>${esc(l.body)}</p></details>`).join('');
   $('#memories').innerHTML = C.memories.map(m => `
-    <div class="col-6 col-md-4"><div class="dm-card p-2">
+    <div class="dm-card p-2">
       ${m.photo ? `<img src="${esc(m.photo)}" class="img-fluid rounded mb-2" alt="">` : ''}
-      <div>${esc(m.caption)}</div><small class="text-muted">${fmt(m.date)}</small></div></div>`).join('');
+      <div>${esc(m.caption)}</div><small class="text-muted">${fmt(m.date)}</small></div>`).join('');
 }
 
 function renderPlans() {
