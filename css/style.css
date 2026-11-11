@@ -1,0 +1,68 @@
+:root{
+  --cream:#F8F6F0; --sage:#E8EDE3; --mgreen:#B8C7B0; --olive:#879B83; --forest:#414B40;
+  --card:#fff; --line:#e3e6dc; --text:#414B40; --olive-d:#5f7559;
+}
+[data-bs-theme=dark]{
+  --cream:#1c211b; --sage:#262d25; --mgreen:#4d5a4a; --olive:#9bb096; --forest:#e8ede3;
+  --card:#2a3129; --line:#3a4339; --text:#e8ede3; --olive-d:#9bb096;
+}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif}
+h1,h2,h3,h4,.serif{font-family:'DM Serif Display',serif;font-weight:400}
+h6{font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--olive-d)}
+.text-muted{color:var(--olive-d)!important}
+.btn-link{--bs-btn-color:var(--olive-d);--bs-btn-hover-color:var(--forest)}
+a{color:var(--olive-d)} a:hover{color:var(--forest)}
+.care-link{font-size:.8rem;text-decoration:none;font-weight:500}
+.care-link:hover{text-decoration:underline}
+.btn-outline-secondary{--bs-btn-color:var(--olive-d);--bs-btn-border-color:var(--mgreen);--bs-btn-hover-bg:var(--sage);
+  --bs-btn-hover-color:var(--forest);--bs-btn-hover-border-color:var(--olive);--bs-btn-active-bg:var(--mgreen);
+  --bs-btn-active-color:var(--forest);--bs-btn-active-border-color:var(--olive);border-radius:12px}
+.mood-btn{transition:.15s}.mood-btn:hover{background:var(--sage)}
+
+/* layout */
+.sidebar{position:fixed;inset:0 auto 0 0;width:240px;background:var(--sage);border-right:1px solid var(--line);
+  flex-direction:column;padding:24px 16px}
+.brand{font-size:1.7rem;margin-bottom:24px;padding-left:12px}
+.brand span{color:var(--olive)}
+.sidebar a{display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:12px;
+  color:var(--text);text-decoration:none;margin-bottom:4px;transition:.2s}
+.sidebar a:hover{background:var(--mgreen)}
+.sidebar a.active{background:var(--olive-d);color:var(--cream)}
+.content{padding:28px 18px 110px;max-width:1000px;margin:0 auto}
+@media(min-width:992px){.content{margin-left:240px;max-width:none;padding:40px 48px}}
+
+.bnav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);
+  display:flex;overflow-x:auto;z-index:50;padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+.bnav a{flex:0 0 auto;min-width:74px;text-align:center;color:var(--text);text-decoration:none;
+  font-size:.68rem;padding:6px 4px;border-radius:12px}
+.bnav a i{display:block;font-size:1.3rem}
+.bnav a.active{color:var(--olive-d);font-weight:700}
+
+/* components */
+.dm-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;
+  box-shadow:0 2px 10px rgba(65,75,64,.06);height:100%}
+.big{font-family:'DM Serif Display',serif;font-size:1.9rem;line-height:1.2;margin-bottom:6px}
+.btn-dm{background:var(--olive-d);color:var(--cream);border:0;border-radius:12px;transition:.2s}
+.btn-dm:hover{filter:brightness(.88);color:var(--cream);transform:translateY(-1px)}
+.progress{height:8px;border-radius:8px;background:var(--sage)}
+.progress-bar{background:var(--olive)}
+.form-control,.form-select{border-radius:12px}
+
+.row-dm{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.row-dm:last-child{border-bottom:0}
+.row-dm.done .t{text-decoration:line-through;opacity:.5}
+.pill{font-size:.68rem;padding:2px 9px;border-radius:20px;background:var(--sage)}
+.p-High{background:#f1d4d0;color:#8a3a30}
+.p-Medium{background:#f0e4c3;color:#7a5f1a}
+.glasses{font-size:1.4rem;color:var(--olive);letter-spacing:4px}
+.mood-btn{font-size:1.7rem;background:none;border:2px solid transparent;border-radius:14px;padding:2px 8px}
+.mood-btn.on{border-color:var(--olive);background:var(--sage)}
+
+details.letter{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:10px}
+details.letter summary{cursor:pointer;font-weight:500}
+details.letter p{margin:12px 0 0;white-space:pre-line}
+
+#toasts{position:fixed;top:16px;right:16px;z-index:2000;display:grid;gap:8px}
+.dm-toast{background:var(--card);color:var(--text);border:1px solid var(--olive);border-radius:14px}
+.note-pin{color:var(--olive-d)}
+#view-budget .big{font-size:clamp(1.05rem,4.6vw,1.9rem);overflow-wrap:anywhere}
