@@ -17,7 +17,6 @@ a{color:var(--olive-d)} a:hover{color:var(--forest)}
 .btn-outline-secondary{--bs-btn-color:var(--olive-d);--bs-btn-border-color:var(--mgreen);--bs-btn-hover-bg:var(--sage);
   --bs-btn-hover-color:var(--forest);--bs-btn-hover-border-color:var(--olive);--bs-btn-active-bg:var(--mgreen);
   --bs-btn-active-color:var(--forest);--bs-btn-active-border-color:var(--olive);border-radius:12px}
-.mood-btn{transition:.15s}.mood-btn:hover{background:var(--sage)}
 
 /* layout */
 .sidebar{position:fixed;inset:0 auto 0 0;width:240px;background:var(--sage);border-right:1px solid var(--line);
@@ -54,9 +53,6 @@ a{color:var(--olive-d)} a:hover{color:var(--forest)}
 .pill{font-size:.68rem;padding:2px 9px;border-radius:20px;background:var(--sage)}
 .p-High{background:#f1d4d0;color:#8a3a30}
 .p-Medium{background:#f0e4c3;color:#7a5f1a}
-.glasses{font-size:1.4rem;color:var(--olive);letter-spacing:4px}
-.mood-btn{font-size:1.7rem;background:none;border:2px solid transparent;border-radius:14px;padding:2px 8px}
-.mood-btn.on{border-color:var(--olive);background:var(--sage)}
 
 /* memories: masonry so each card fits its own photo */
 .memories{column-count:2;column-gap:16px}
@@ -72,3 +68,9 @@ details.letter p{margin:12px 0 0;white-space:pre-line}
 .dm-toast{background:var(--card);color:var(--text);border:1px solid var(--olive);border-radius:14px}
 .note-pin{color:var(--olive-d)}
 #view-budget .big{font-size:clamp(1.05rem,4.6vw,1.9rem);overflow-wrap:anywhere}
+/* reset corner */
+.breath{width:130px;height:130px;border-radius:50%;margin:14px auto;background:var(--mgreen);transform:scale(.7)}
+.breath.on{animation:breathe 8s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(.7)}50%{transform:scale(1.1)}}
+@media(prefers-reduced-motion:reduce){.breath.on{animation:none;transform:scale(.9)}}
+#timerText{font-size:3.2rem}

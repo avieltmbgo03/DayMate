@@ -105,6 +105,21 @@ window.DAYMATE_CONTENT = {
     { caption: "After Shift Date", date: "2024-11-04", photo: "assets/memories/pic12.jpg" }
   ],
 
+  // para sa Reset Corner (pwede mong dagdagan)
+  foodIdeas: [
+    "Lechong Kawali", "Porkchop", "Siomai Rice", "Kare Kare", "Pancit canton",
+    "Lucky Me", "Milktea", "Matcha", "Cheese Cake", "Sushi", "Ramen", "Burger", "Pizza", "Fried Chicken", "Inasal"
+  ],
+  tinySteps: [
+    "Isulat mo lang yung title ng gagawin mo. Yun lang muna.",
+    "Mag-timer ng 5 minutes. Pwede ka nang huminto pagkatapos.",
+    "Buksan mo yung file o notes, wag ka pang magsimula.",
+    "Ayusin mo lang yung table mo, 2 minutes.",
+    "Uminom ng tubig, tapos balik ka.",
+    "I-list mo 3 bagay na kailangan mong tapusin today. Tatlo lang.",
+    "Laro ka muna"
+  ],
+
   dateIdeas: [
     "Picnic sa park", "Movie marathon sa bahay", "Sunset walk",
     "Cook dinner together", "Street food crawl", "Stargazing"

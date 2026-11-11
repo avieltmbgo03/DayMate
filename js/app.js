@@ -1,7 +1,9 @@
 /* ---------- helpers ---------- */
-const C = Object.assign({ hisName: 'Kenzie', herName: 'Aviel', anniversary: '', messages: [], letters: [], memories: [], dateIdeas: [] }, window.DAYMATE_CONTENT);
+const C = Object.assign({ hisName: 'Kenzie', herName: 'Aviel', anniversary: '', messages: [], letters: [], memories: [], dateIdeas: [], foodIdeas: [], tinySteps: [] }, window.DAYMATE_CONTENT);
 if (!C.messages.length) C.messages = ['♡'];
 if (!C.dateIdeas.length) C.dateIdeas = ['Picnic sa park'];
+if (!C.foodIdeas.length) C.foodIdeas = ['Sinigang', 'Tapsilog', 'Pancit canton'];
+if (!C.tinySteps.length) C.tinySteps = ['Isulat mo lang yung title ng gagawin mo.'];
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
@@ -21,19 +23,16 @@ const DB = {
 };
 const S = {
   tasks: DB.get('tasks', []), notes: DB.get('notes', []), events: DB.get('events', []),
-  bucket: DB.get('bucket', []), tx: DB.get('tx', []), care: DB.get('care', {}),
+  bucket: DB.get('bucket', []), tx: DB.get('tx', []),
   settings: DB.get('settings', { theme: 'light' })
 };
 const save = k => DB.set(k, S[k]);
 const userName = () => S.settings.name || C.hisName;
-const cd = () => (S.care[today()] ??= { water: 0, mood: '', sleep: '', checks: [], r: ['', '', ''] });
 
 /* ---------- constants ---------- */
-const NAV = [['home','Home','house'],['myday','My Day','check2-square'],['care','Take Care','heart-pulse'],
+const NAV = [['home','Home','house'],['myday','My Day','check2-square'],['reset','Reset','arrow-repeat'],
   ['notes','Notes','journal-text'],['little','Little Things','envelope-heart'],['plans','Our Plans','calendar-heart'],
   ['budget','Budget','wallet2'],['settings','Settings','gear']];
-const MOODS = [['😞','Rough'],['😕','Meh'],['😐','Okay'],['🙂','Good'],['😄','Great']];
-const CHECKS = ['Drink water','Eat a proper meal','Take a short break','Stretch','Get some sunlight','Message someone you love'];
 const BREAKS = ['Pahinga muna. Stretch ka saglit.','Drink water! 💧','Tingin ka sa malayo ng 20 seconds.','Deep breath in… and out.','Kumain ka na ba? 🍚'];
 const BCATS = ['Food','Transport','School','Fun','Bills','Allowance','Other'];
 const PR = { High: 0, Medium: 1, Low: 2 };
@@ -99,9 +98,6 @@ const A = {
   flip: (k, id, b) => { const o = S[k].find(x => x.id === id); o[b.dataset.f] = !o[b.dataset.f]; save(k); render(); },
   msg: () => { msgIdx = Math.floor(Math.random() * C.messages.length); renderMsg(); },
   idea: () => { $('#ideaBox').textContent = pick(C.dateIdeas); },
-  water: (k, id, b) => { const c = cd(); c.water = Math.max(0, c.water + +b.dataset.n); save('care'); render(); },
-  mood: (k, id, b) => { cd().mood = b.dataset.m; save('care'); render(); },
-  chk: (k, id, b) => { const c = cd(), i = +b.dataset.i; c.checks = c.checks.includes(i) ? c.checks.filter(x => x !== i) : [...c.checks, i]; save('care'); render(); },
   brk: () => toast(pick(BREAKS)),
   export: () => {
     const a = document.createElement('a');
@@ -141,10 +137,6 @@ document.addEventListener('change', e => {
     r.readAsText(t.files[0]); t.value = '';
   }
 });
-document.addEventListener('input', e => {
-  const t = e.target;
-  if (t.dataset.care) { const c = cd(); if (t.dataset.care === 'sleep') c.sleep = t.value; else c.r[+t.dataset.care] = t.value; save('care'); }
-});
 $('#noteSearch').addEventListener('input', renderNotes);
 $('#formEl').addEventListener('submit', e => {
   e.preventDefault(); const d = Object.fromEntries(new FormData(e.target)); formModal.hide(); formCb(d);
@@ -179,18 +171,12 @@ function renderHome() {
   $('#homeEvents').innerHTML = ev.length
     ? ev.map(e => `<div class="row-dm"><div class="flex-grow-1">${esc(e.title)}</div><small class="text-muted">${fmt(e.date)} ${esc(e.time)}</small></div>`).join('')
     : empty('Wala pang events.');
-  const c = cd();
   $('#homeCare').innerHTML = `<div class="d-flex justify-content-between align-items-center">
-      <h6 class="mb-0">Take care</h6><a class="care-link" href="#care">See all <i class="bi bi-arrow-right"></i></a></div>
-    <div class="big mt-2">${c.water} / 8 <small class="fs-6 text-muted">glasses</small></div>
-    <div class="glasses">${Array.from({ length: 8 }, (_, i) => `<i class="bi bi-droplet${i < c.water ? '-fill' : ''}"></i>`).join('')}</div>
-    <div class="mt-3 d-flex gap-2 flex-wrap">
-      <button class="btn btn-dm btn-sm" data-act="water" data-n="1"><i class="bi bi-plus-lg"></i> glass</button>
-      <button class="btn btn-outline-secondary btn-sm" aria-label="Remove a glass" data-act="water" data-n="-1"><i class="bi bi-dash-lg"></i></button>
-      <button class="btn btn-outline-secondary btn-sm" data-act="brk">☕ Break</button></div>
-    <hr class="my-3">
-    <div class="small text-muted mb-1">${c.mood ? 'Mood today' : 'How are you feeling today?'}</div>
-    <div class="d-flex flex-wrap">${MOODS.map(([e, l]) => `<button class="mood-btn ${c.mood === e ? 'on' : ''}" title="${l}" aria-label="${l}" data-act="mood" data-m="${e}">${e}</button>`).join('')}</div>`;
+      <h6 class="mb-0">Reset corner</h6><a class="care-link" href="#reset">Open <i class="bi bi-arrow-right"></i></a></div>
+    <p class="mt-3 mb-3">Stuck, pagod, o hindi alam saan magsisimula? Timer, breathing, at food picker, nandito lahat.</p>
+    <div class="d-flex gap-2 flex-wrap">
+      <a class="btn btn-dm btn-sm" href="#reset"><i class="bi bi-stopwatch"></i> Focus timer</a>
+      <button class="btn btn-outline-secondary btn-sm" data-act="brk">☕ Break</button></div>`;
 }
 
 function renderTasks() {
@@ -200,29 +186,6 @@ function renderTasks() {
     .filter(t => F.range === 'All' || (F.range === 'Today' ? t.due === today() : t.due >= today() && t.due <= wk))
     .sort((a, b) => (a.done - b.done) || (a.due || '9999').localeCompare(b.due || '9999') || (PR[a.priority] - PR[b.priority]));
   $('#taskList').innerHTML = list.length ? list.map(taskRow).join('') : empty('Walang tasks dito.');
-}
-
-function renderCare() {
-  const c = cd();
-  $('#careBox').innerHTML = `<div class="row g-3">
-    <div class="col-md-6"><div class="dm-card"><h6>Water</h6>
-      <div class="big">${c.water} / 8</div>
-      <div class="glasses">${Array.from({ length: 8 }, (_, i) => `<i class="bi bi-droplet${i < c.water ? '-fill' : ''}"></i>`).join('')}</div>
-      <div class="mt-3"><button class="btn btn-dm btn-sm" data-act="water" data-n="1">+ glass</button>
-      <button class="btn btn-outline-secondary btn-sm" data-act="water" data-n="-1">−</button></div></div></div>
-    <div class="col-md-6"><div class="dm-card"><h6>Mood check-in</h6>
-      ${MOODS.map(([e, l]) => `<button class="mood-btn ${c.mood === e ? 'on' : ''}" title="${l}" aria-label="${l}" data-act="mood" data-m="${e}">${e}</button>`).join('')}
-      <hr><h6>Sleep last night (hours)</h6>
-      <input type="number" step="0.5" min="0" max="24" class="form-control" style="max-width:120px" value="${esc(c.sleep)}" data-care="sleep"></div></div>
-    <div class="col-md-6"><div class="dm-card"><h6>Self-care checklist</h6>
-      ${CHECKS.map((t, i) => `<div class="row-dm ${c.checks.includes(i) ? 'done' : ''}">
-        <input class="form-check-input mt-0" type="checkbox" aria-label="${esc(t)}" ${c.checks.includes(i) ? 'checked' : ''} data-act="chk" data-i="${i}">
-        <div class="t">${t}</div></div>`).join('')}</div></div>
-    <div class="col-md-6"><div class="dm-card"><h6>End-of-day reflection</h6>
-      ${['What went well?', 'What was difficult?', 'What are you looking forward to?'].map((q, i) =>
-        `<label class="form-label small mb-1">${q}</label><textarea class="form-control mb-2" rows="2" data-care="${i}">${esc(c.r[i])}</textarea>`).join('')}
-      <button class="btn btn-outline-secondary btn-sm mt-1" data-act="brk">☕ Little break button</button></div></div>
-  </div>`;
 }
 
 function renderNotes() {
@@ -298,11 +261,45 @@ function renderBudget() {
     : empty('Wala pang transactions.');
 }
 
+/* ---------- reset corner (nothing is saved here) ---------- */
+const RS = { mins: 25, left: 25 * 60, end: 0, tid: null, bt: null };
+const mmss = s => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+function paintTimer() {
+  $('#timerText').textContent = mmss(RS.left);
+  $('#timerBtn').textContent = RS.tid ? 'Pause' : 'Start';
+  $$('[data-act="tmin"]').forEach(b => b.classList.toggle('active', +b.dataset.n === RS.mins));
+}
+const stopTimer = () => { clearInterval(RS.tid); RS.tid = null; };
+function tickTimer() {
+  RS.left = Math.max(0, Math.round((RS.end - Date.now()) / 1000));
+  if (!RS.left) { stopTimer(); RS.left = RS.mins * 60; toast('Tapos na ang oras! Good job ♡'); navigator.vibrate?.(300); }
+  paintTimer();
+}
+Object.assign(A, {
+  tmin: (k, id, b) => { stopTimer(); RS.mins = +b.dataset.n; RS.left = RS.mins * 60; paintTimer(); },
+  tgo: () => { if (RS.tid) { stopTimer(); } else { RS.end = Date.now() + RS.left * 1000; RS.tid = setInterval(tickTimer, 500); } paintTimer(); },
+  trst: () => { stopTimer(); RS.left = RS.mins * 60; paintTimer(); },
+  breathe: () => {
+    const el = $('#breath'), on = el.classList.toggle('on'), lab = $('#breathText');
+    clearInterval(RS.bt); $('#breathBtn').textContent = on ? 'Stop' : 'Start breathing';
+    if (!on) { lab.textContent = 'Ready ka na?'; return; }
+    let i = 0; const step = () => { lab.textContent = i++ % 2 ? 'Labas… dahan-dahan' : 'Papasok… 4 count'; };
+    step(); RS.bt = setInterval(step, 4000);
+  },
+  eat: () => { $('#eatBox').textContent = pick(C.foodIdeas); },
+  tiny: () => { $('#tinyBox').textContent = pick(C.tinySteps); }
+});
+function renderReset() {
+  const t = S.tasks.filter(x => !x.done).sort((a, b) => (a.due || '9999').localeCompare(b.due || '9999') || (PR[a.priority] - PR[b.priority]))[0];
+  $('#nextUp').textContent = t ? `Next up: ${t.title}` : 'Walang pending na task. Chill ka muna ✨';
+  paintTimer();
+}
+
 function renderSettings() {
   $('#setName').value = S.settings.name || ''; $('#setName').placeholder = C.hisName;
   $('#darkSwitch').checked = S.settings.theme === 'dark';
 }
-function render() { renderHome(); renderTasks(); renderCare(); renderNotes(); renderLittle(); renderPlans(); renderBudget(); renderSettings(); }
+function render() { renderHome(); renderTasks(); renderReset(); renderNotes(); renderLittle(); renderPlans(); renderBudget(); renderSettings(); }
 
 /* ---------- theme, nav, init ---------- */
 const applyTheme = () => document.documentElement.setAttribute('data-bs-theme', S.settings.theme || 'light');

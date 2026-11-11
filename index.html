@@ -64,11 +64,51 @@
     <div class="dm-card" id="taskList"></div>
   </section>
 
-  <!-- TAKE CARE -->
-  <section class="view" id="view-care" hidden>
-    <h1>Take Care</h1>
-    <p class="text-muted">Gentle lang. Walang pressure. ♡</p>
-    <div id="careBox"></div>
+  <!-- RESET CORNER -->
+  <section class="view" id="view-reset" hidden>
+    <h1>Reset Corner</h1>
+    <p class="text-muted">Para sa mga oras na stuck ka, pagod, o hindi alam saan magsisimula. Walang sine-save dito, gamitin mo lang. ♡</p>
+    <div class="row g-3">
+      <div class="col-md-6"><div class="dm-card text-center">
+        <h6>Focus timer</h6>
+        <p class="small text-muted mb-1" id="nextUp"></p>
+        <div class="big" id="timerText">25:00</div>
+        <div class="btn-group mb-3" role="group" aria-label="Minutes">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-act="tmin" data-n="25">25 min</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-act="tmin" data-n="10">10 min</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-act="tmin" data-n="5">5 min</button>
+        </div>
+        <div><button type="button" class="btn btn-dm btn-sm" id="timerBtn" data-act="tgo">Start</button>
+        <button type="button" class="btn btn-outline-secondary btn-sm" data-act="trst">Reset</button></div>
+      </div></div>
+      <div class="col-md-6"><div class="dm-card text-center">
+        <h6>Breathe</h6>
+        <div class="breath" id="breath"></div>
+        <p class="mb-3" id="breathText">Ready ka na?</p>
+        <button type="button" class="btn btn-dm btn-sm" id="breathBtn" data-act="breathe">Start breathing</button>
+      </div></div>
+      <div class="col-md-6"><div class="dm-card">
+        <h6>Anong kakainin?</h6>
+        <p class="serif fs-4 mb-3" id="eatBox">Kumain ka na ba? 🍚</p>
+        <button type="button" class="btn btn-dm btn-sm" data-act="eat">Pili para sa akin</button>
+      </div></div>
+      <div class="col-md-6"><div class="dm-card">
+        <h6>Hindi makapagsimula?</h6>
+        <p class="serif fs-4 mb-3" id="tinyBox">Isang maliit na step lang muna.</p>
+        <button type="button" class="btn btn-dm btn-sm" data-act="tiny">Bigyan mo ko ng step</button>
+      </div></div>
+      <div class="col-12"><details class="letter">
+        <summary>Parang overwhelmed? Try 5-4-3-2-1</summary>
+        <p>Magsabi ka (o isipin) ng:
+5 bagay na nakikita mo
+4 bagay na nahahawakan mo
+3 bagay na naririnig mo
+2 bagay na naaamoy mo
+1 bagay na natitikman mo
+
+Dahan-dahan lang. Ibabalik ka nito sa ngayon.</p>
+      </details></div>
+    </div>
   </section>
 
   <!-- NOTES -->
